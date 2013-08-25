@@ -1,0 +1,38 @@
+{
+  "name": "blog",
+  "description": "A blog a day keeps the doctor away",
+  "version": "0.1.0",
+  "homepage": "https://github.com/eddywashere/blog",
+  "author": {
+    "name": "Eddy Hernandez",
+    "email": "edward.d.hernandez@gmail.com",
+    "url": "http://eddywashere.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eddywashere/blog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eddywashere/blog/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/eddywashere/blog/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "/lib/app",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-watch": "~0.2.0",
+    "grunt": "~0.4.1"
+  },
+  "keywords": []
+}
