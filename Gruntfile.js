@@ -72,7 +72,6 @@ module.exports = function(grunt) {
   // Default task.
   grunt.registerTask('default', ['jshint', 'mochaTest']);
 
-  grunt.registerTask('test', ['mochaTest']);
-  grunt.registerTask('server', [ 'express:dev', 'watch' ]);
+  grunt.registerTask('server', [ 'express:dev', 'jshint', 'mochaTest', 'watch' ]);
 
 };
