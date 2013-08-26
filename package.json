@@ -26,13 +26,15 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "grunt"
+    "test": "grunt test"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.1.1",
     "grunt-contrib-nodeunit": "~0.1.2",
     "grunt-contrib-watch": "~0.2.0",
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.1",
+    "should": "~1.2.2",
+    "grunt-mocha-test": "~0.6.3"
   },
   "keywords": []
 }

@@ -11,5 +11,15 @@
   "boss": true,
   "eqnull": true,
   "node": true,
-  "es5": true
+  "es5": true,
+  "globals": {
+    "describe": false,
+    "it": false,
+    "suite": false,
+    "test": false,
+    "before": false,
+    "after": false,
+    "should": false,
+    "assert": false
+  }
 }

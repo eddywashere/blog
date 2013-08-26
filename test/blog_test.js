@@ -2,35 +2,12 @@
 
 var blog = require('../lib/app.js');
 
-/*
-  ======== A Handy Little Nodeunit Reference ========
-  https://github.com/caolan/nodeunit
+describe('blog', function () {
+  it('should expose a function', function () {
+    blog.awesome.should.be.an.instanceof(Function);
+  });
 
-  Test methods:
-    test.expect(numAssertions)
-    test.done()
-  Test assertions:
-    test.ok(value, [message])
-    test.equal(actual, expected, [message])
-    test.notEqual(actual, expected, [message])
-    test.deepEqual(actual, expected, [message])
-    test.notDeepEqual(actual, expected, [message])
-    test.strictEqual(actual, expected, [message])
-    test.notStrictEqual(actual, expected, [message])
-    test.throws(block, [error], [message])
-    test.doesNotThrow(block, [error], [message])
-    test.ifError(value)
-*/
-
-exports['awesome'] = {
-  setUp: function(done) {
-    // setup here
-    done();
-  },
-  'no args': function(test) {
-    test.expect(1);
-    // tests here
-    test.equal(blog.awesome(), 'awesome', 'should be awesome.');
-    test.done();
-  },
-};
+  it('should be awesome', function () {
+    blog.awesome().should.eql('awesome');
+  });
+});
