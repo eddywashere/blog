@@ -1,13 +1,27 @@
 'use strict';
 
-var blog = require('../lib/app.js');
+var blog = require('../app/server.js'),
+should = require('should'),
+request = require('supertest');
 
-describe('blog', function () {
-  it('should expose a function', function () {
-    blog.awesome.should.be.an.instanceof(Function);
+describe('Blog', function () {
+  it('should exist', function () {
+    should.exist(blog);
   });
 
-  it('should be awesome', function () {
-    blog.awesome().should.eql('awesome');
+  it('should expose a listen function', function () {
+    blog.listen.should.be.an.instanceof(Function);
+  });
+
+  describe('routes', function () {
+    it("should default to hello world", function (done) {
+      request(blog)
+      .get('/')
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.text.should.equal('Hello World');
+        done();
+      });
+    });
   });
 });

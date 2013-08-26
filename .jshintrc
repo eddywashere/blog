@@ -19,7 +19,6 @@
     "test": false,
     "before": false,
     "after": false,
-    "should": false,
     "assert": false
   }
 }

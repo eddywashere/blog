@@ -34,7 +34,10 @@
     "grunt-contrib-watch": "~0.2.0",
     "grunt": "~0.4.1",
     "should": "~1.2.2",
-    "grunt-mocha-test": "~0.6.3"
+    "grunt-mocha-test": "~0.6.3",
+    "express": "~3.3.5",
+    "grunt-express-server": "~0.4.2",
+    "supertest": "~0.7.1"
   },
   "keywords": []
 }
