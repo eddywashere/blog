@@ -1,18 +1,7 @@
 'use strict';
 
-/**
- *
- */
+var app = require('./app');
 
-var express = require('express'),
-app = express(),
-port = process.env.PORT || 3000;
-
-app.get('/', function(req, res){
-  res.send('Hello World');
-});
-
-app.listen(port);
-console.log("Express server listening on port " + port);
-
-module.exports = app;
+console.log("Starting web server...");
+app.start();
+console.log("Successfully started web server. Waiting for incoming connections...");

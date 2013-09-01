@@ -1,6 +1,6 @@
 'use strict';
 
-var blog = require('../app/server.js'),
+var blog = require('../app/app.js'),
 should = require('should'),
 request = require('supertest');
 
@@ -10,12 +10,12 @@ describe('Blog', function () {
   });
 
   it('should expose a listen function', function () {
-    blog.listen.should.be.an.instanceof(Function);
+    blog.app.listen.should.be.an.instanceof(Function);
   });
 
   describe('routes', function () {
     it("should default to hello world", function (done) {
-      request(blog)
+      request(blog.app)
       .get('/')
       .end(function(err, res){
         res.should.have.status(200);

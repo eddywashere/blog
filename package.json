@@ -36,8 +36,9 @@
     "should": "~1.2.2",
     "grunt-mocha-test": "~0.6.3",
     "express": "~3.3.5",
-    "grunt-express-server": "~0.4.2",
-    "supertest": "~0.7.1"
+    "supertest": "~0.7.1",
+    "grunt-nodemon": "~0.1.0",
+    "grunt-concurrent": "~0.3.1"
   },
   "keywords": []
 }
