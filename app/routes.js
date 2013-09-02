@@ -14,8 +14,8 @@ var posts = require('./controllers/posts');
 // DELETE /posts/:id      destroy   delete a specific post
 
 module.exports = function(app) {
-  app.get('/', function(req, res){
-    res.send(200, "Hello World");
+  app.get('/api', function(req, res){
+    res.send(200, {'version' : '0.0.1'});
   });
 
   app.get('/api/posts', posts.index);
