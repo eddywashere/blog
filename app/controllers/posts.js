@@ -1,12 +1,24 @@
 'use strict';
 
-// stub data
-var data = {foo: "bar"};
+// Include model
+var Post = require('../models/post');
 
 exports.index = function(req, res){
-  res.json('200', data);
+  Post.find({}, function(err, posts){
+    if (err || !posts) {
+      res.status(500);
+      return res.render('500', { err : err});
+    }
+    res.json('200', posts);
+  });
 };
 
 exports.show = function(req, res){
-  res.json('200', data);
+  Post.findOne({ _id : req.params.id }, function(err, post){
+    if (err || !post) {
+      res.status(500);
+      return res.render('500');
+    }
+    res.json('200', post);
+  });
 };
