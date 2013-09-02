@@ -40,5 +40,8 @@
     "grunt-nodemon": "~0.1.0",
     "grunt-concurrent": "~0.3.1"
   },
-  "keywords": []
+  "keywords": [],
+  "dependencies": {
+    "mongoose": "~3.6.18"
+  }
 }

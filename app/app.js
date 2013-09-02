@@ -8,6 +8,7 @@ var express = require('express'),
 routes = require('./routes'),
 app = express(),
 env = process.env.NODE_ENV || 'development',
+database = require('./db'),
 errorHandler = function (err, req, res, next) {
   if (env === 'development') {
     console.error(err.stack);
@@ -16,8 +17,11 @@ errorHandler = function (err, req, res, next) {
   res.json('error', { error: err.stack });
 };
 
+database.connect();
+
 app.configure(function(){
   app.disable('x-powered-by');
+  app.set('json spaces', 0);
   app.set('port', process.env.PORT || 8000);
   app.use(express.logger('dev'));
   app.use(express.compress());
