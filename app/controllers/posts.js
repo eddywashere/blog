@@ -7,7 +7,7 @@ exports.index = function(req, res){
   Post.find({}, function(err, posts){
     if (err || !posts) {
       res.status(500);
-      return res.render('500', { err : err});
+      return res.json(500, { error : err.stack});
     }
     res.json('200', posts);
   });
@@ -15,9 +15,10 @@ exports.index = function(req, res){
 
 exports.show = function(req, res){
   Post.findOne({ _id : req.params.id }, function(err, post){
-    if (err || !post) {
-      res.status(500);
-      return res.render('500');
+    if (err) {
+      return res.json(500, {'error': err.stack});
+    } else if (!post){
+      return res.json(404, {'message': 'Post not found'});
     }
     res.json('200', post);
   });
