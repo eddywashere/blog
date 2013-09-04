@@ -20,12 +20,12 @@ database.connect();
 
 app.configure(function(){
   app.disable('x-powered-by');
-  app.set('json spaces', 0);
   app.set('port', process.env.PORT || 8000);
   app.use(express.logger('dev'));
   app.use(express.compress());
   app.use(express.methodOverride());
   app.use(express.bodyParser());
+  app.use(express.favicon());
   app.use(app.router);
   app.use(errorHandler);
 });
