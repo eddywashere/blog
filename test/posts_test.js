@@ -12,8 +12,7 @@ describe('Posts', function () {
   before(function (done) {
     post = new Post({
       title: "Testing the ability to post",
-      body: "lorem  ipsum",
-      date: new Date(Date.now())
+      body: "lorem  ipsum"
     });
 
     post.save();
@@ -32,6 +31,16 @@ describe('Posts', function () {
         res.body.should.be.an.instanceof(Array);
         done();
       });
+    });
+  });
+
+  describe('Post /api/posts', function () {
+    it.skip('should successfully create a post with a valid request', function (done) {
+      done();
+    });
+
+    it.skip('should return a 400 when posting an invalid request', function (done) {
+      done();
     });
   });
 

@@ -20,7 +20,7 @@ module.exports = function(app) {
   });
 
   app.get('/api/posts', posts.index);
-  // app.post('/api/posts', post.create);
+  app.post('/api/posts', posts.create);
   app.get('/api/posts/:id', helper.validateId, posts.show);
   // app.put('/api/posts/:id', post.update);
   // app.del('/api/posts/:id', post.destroy);
