@@ -115,7 +115,63 @@ describe('Posts', function () {
     });
   });
 
-  describe('Delete /api/posts/:id', function () {
+  describe('PUT /api/posts/:id', function () {
+    it('should successfully update a post with a valid id', function (done) {
+      request(blog.app)
+      .put('/api/posts/' + post._id)
+      .set('Accept', 'application/json')
+      .send({
+        title: 'Foo World!',
+        body: 'Bar ipsum dolor sit amet'
+      })
+      .expect('Content-Type', /json/)
+      .end(function(err, res){
+        res.should.have.status(201);
+        res.type.should.equal('application/json');
+        res.should.be.an.instanceof(Object);
+        res.text.should.include('Post successfully updated');
+        done();
+      });
+    });
+
+    it('should return a 404 message when post not found', function (done) {
+      request(blog.app)
+      .put('/api/posts/000000000000000000000000')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .send({
+        title: 'Foo World!',
+        body: 'Bar ipsum dolor sit amet'
+      })
+      .end(function(err, res){
+        res.should.have.status(404);
+        res.type.should.equal('application/json');
+        res.should.be.an.instanceof(Object);
+        res.text.should.include('Post not found');
+        done();
+      });
+    });
+
+    it('should return a 400 message when attempting to delete a post with an invalid id', function (done) {
+      request(blog.app)
+      .put('/api/posts/123')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .send({
+        title: 'Foo World!',
+        body: 'Bar ipsum dolor sit amet'
+      })
+      .end(function(err, res){
+        res.should.have.status(400);
+        res.type.should.equal('application/json');
+        res.should.be.an.instanceof(Object);
+        res.text.should.include('Invalid ObjectID');
+        done();
+      });
+    });
+  });
+
+  describe('DELETE /api/posts/:id', function () {
     it('should successfully delete a post with a valid id', function (done) {
       request(blog.app)
       .del('/api/posts/' + post._id)
