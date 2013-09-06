@@ -21,7 +21,7 @@ database.connect();
 app.configure(function(){
   app.disable('x-powered-by');
   app.set('port', process.env.PORT || 8000);
-  if (process.env.NODE_ENV === "development") {
+  if (env === "development") {
     app.use(express.logger('dev'));
   }
   app.use(express.compress());
