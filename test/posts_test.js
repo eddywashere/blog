@@ -34,7 +34,7 @@ describe('Posts', function () {
     });
   });
 
-  describe('Post /api/posts', function () {
+  describe('POST /api/posts', function () {
     it('should successfully create a post with a valid request', function (done) {
       request(blog.app)
       .post('/api/posts')
