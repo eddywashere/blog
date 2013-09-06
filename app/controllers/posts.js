@@ -24,6 +24,7 @@ exports.show = function(req, res){
     } else if (!post){
       return res.json(404, {message: 'Post not found'});
     }
+    res.status(200);
     res.format({
       json: function(){
         res.send(post);
