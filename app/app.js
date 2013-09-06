@@ -21,7 +21,9 @@ database.connect();
 app.configure(function(){
   app.disable('x-powered-by');
   app.set('port', process.env.PORT || 8000);
-  app.use(express.logger('dev'));
+  if (process.env.NODE_ENV === "development") {
+    app.use(express.logger('dev'));
+  }
   app.use(express.compress());
   app.use(express.methodOverride());
   app.use(express.bodyParser());

@@ -5,3 +5,4 @@ before_script:
   - npm install -g grunt-cli
 services:
   - mongodb
+env: NODE_ENV=test
