@@ -7,7 +7,8 @@ function connect() {
   var mongoose = require('mongoose'),
   fs = require('fs'),
   models_path = './app/models',
-  model_files = fs.readdirSync(models_path);
+  model_files = fs.readdirSync(models_path),
+  env = process.env.NODE_ENV || 'development';
 
   model_files.forEach(function (file) {
     require('.' + models_path + '/' +file);
@@ -18,7 +19,9 @@ function connect() {
 
   //attach lister to connected event
   mongoose.connection.once('connected', function() {
-    console.log("Connected to database");
+    if (env === 'development') {
+      console.log("Connected to database");
+    }
   });
 
   // log any db errors
