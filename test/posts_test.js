@@ -35,12 +35,40 @@ describe('Posts', function () {
   });
 
   describe('Post /api/posts', function () {
-    it.skip('should successfully create a post with a valid request', function (done) {
-      done();
+    it('should successfully create a post with a valid request', function (done) {
+      request(blog.app)
+      .post('/api/posts')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .send({
+        title: 'Hello World!',
+        body: 'Lorem ipsum dolor sit amet'
+      })
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.type.should.equal('application/json');
+        res.body.should.be.an.instanceof(Object);
+        res.text.should.include('Post successfully created');
+        done();
+      });
     });
 
-    it.skip('should return a 400 when posting an invalid request', function (done) {
-      done();
+    it('should return a 400 when posting an invalid request', function (done) {
+      request(blog.app)
+      .post('/api/posts')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .send({
+        title: 'Hello World!',
+        content: 'Lorem ipsum dolor sit amet'
+      })
+      .end(function(err, res){
+        res.should.have.status(400);
+        res.type.should.equal('application/json');
+        res.body.should.be.an.instanceof(Object);
+        res.text.should.include('Validation failed');
+        done();
+      });
     });
   });
 
