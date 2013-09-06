@@ -87,6 +87,20 @@ describe('Posts', function () {
     });
   });
 
+  describe('Delete /api/posts/:id', function () {
+    it.skip('should successfully delete a post with a valid id', function (done) {
+      done();
+    });
+
+    it.skip('should return a 404 message when post not found', function (done) {
+      done();
+    });
+
+    it.skip('should return a 400 message when attempting to delete a post with an invalid id', function (done) {
+      done();
+    });
+  });
+
   after(function (done) {
     post.remove(function (err) {
       if (err) {
