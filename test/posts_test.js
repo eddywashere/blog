@@ -116,16 +116,46 @@ describe('Posts', function () {
   });
 
   describe('Delete /api/posts/:id', function () {
-    it.skip('should successfully delete a post with a valid id', function (done) {
-      done();
+    it('should successfully delete a post with a valid id', function (done) {
+      request(blog.app)
+      .del('/api/posts/' + post._id)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .end(function(err, res){
+        res.should.have.status(200);
+        res.type.should.equal('application/json');
+        res.should.be.an.instanceof(Object);
+        res.text.should.include('Post successfully deleted');
+        done();
+      });
     });
 
-    it.skip('should return a 404 message when post not found', function (done) {
-      done();
+    it('should return a 404 message when post not found', function (done) {
+      request(blog.app)
+      .del('/api/posts/' + post._id)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .end(function(err, res){
+        res.should.have.status(404);
+        res.type.should.equal('application/json');
+        res.should.be.an.instanceof(Object);
+        res.text.should.include('Post not found');
+        done();
+      });
     });
 
-    it.skip('should return a 400 message when attempting to delete a post with an invalid id', function (done) {
-      done();
+    it('should return a 400 message when attempting to delete a post with an invalid id', function (done) {
+      request(blog.app)
+      .del('/api/posts/123')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .end(function(err, res){
+        res.should.have.status(400);
+        res.type.should.equal('application/json');
+        res.should.be.an.instanceof(Object);
+        res.text.should.include('Invalid ObjectID');
+        done();
+      });
     });
   });
 
