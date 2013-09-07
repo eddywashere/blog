@@ -4,17 +4,12 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    nodemon: {
+    express: {
       dev: {
         options: {
-          file: 'app/server.js',
-          watchedExtensions: ['js'],
-          watchedFolders: ['app'],
-          delayTime: 1,
-          env: {
-            PORT: '8000'
-          },
-          cwd: __dirname
+          script: 'app/server.js',
+          port: 8000,
+          node_env: 'development'
         }
       }
     },
@@ -44,31 +39,23 @@ module.exports = function(grunt) {
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint:gruntfile', 'mochaTest'],
+        tasks: ['jshint:gruntfile'],
         options: {
           livereload: true
         }
       },
       lib: {
         files: '<%= jshint.lib.src %>',
-        tasks: ['jshint:lib', 'mochaTest'],
+        tasks: ['jshint:lib'],
         options: {
           livereload: true
         }
       },
-      test: {
-        files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test', 'mochaTest'],
+      express: {
+        files:  [ 'app/**/*.js' ],
+        tasks:  [ 'express:dev' ],
         options: {
-          livereload: true
-        }
-      }
-    },
-    concurrent: {
-      target: {
-        tasks: ['nodemon:dev', 'watch'],
-        options: {
-          logConcurrentOutput: true
+          nospawn: true
         }
       }
     }
@@ -78,12 +65,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-mocha-test');
-  grunt.loadNpmTasks('grunt-concurrent');
-  grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-express-server');
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'mochaTest']);
 
-  grunt.registerTask('server', ['concurrent:target']);
+  grunt.registerTask('server', ['express:dev', 'watch']);
 
 };
