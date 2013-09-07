@@ -8,8 +8,9 @@ var express = require('express'),
 routes = require('./routes'),
 app = express(),
 env = process.env.NODE_ENV || 'development',
-database = require('./db'),
-errorHandler = function (err, req, res, next) {
+database = require('./db');
+
+var errorHandler = function (err, req, res, next) {
   if (env === 'development') {
     console.error(err.stack);
   }
