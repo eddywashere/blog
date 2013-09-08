@@ -39,7 +39,8 @@ app.configure(function(){
   app.use(express.session({
     secret: process.env.SESSION_SECRET || "OpenSesame",
     store: new MongoStore({
-      url: config.db
+      url: config.db,
+      auto_reconnect: true
     })
   }));
   app.use(passport.initialize());
