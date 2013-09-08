@@ -7,11 +7,13 @@ ObjectId = Schema.ObjectId;
 var PostSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   body: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   created_at: {
     type: Date
