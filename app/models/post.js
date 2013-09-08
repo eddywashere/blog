@@ -27,6 +27,8 @@ PostSchema.pre('save', function (next) {
   if (!this.created_at) {
     this.created_at = Date.now();
     this.updated_at = this.created_at;
+  } else {
+    this.updated_at = Date.now();
   }
   next();
 });

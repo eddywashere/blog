@@ -64,7 +64,6 @@ exports.update = function(req, res){
 
     post.title = req.body.title;
     post.body = req.body.body;
-    post.updated_at = Date.now();
 
     post.save(function(err){
       res.status(201);
