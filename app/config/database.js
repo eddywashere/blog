@@ -1,23 +1,21 @@
 'use strict';
 
-var db;
+var db,
+mongoose = require('mongoose'),
+fs = require('fs'),
+env = process.env.NODE_ENV || 'development';
 
-function connect() {
+function connect(url) {
 
-  var mongoose = require('mongoose'),
-  fs = require('fs'),
-  models_path = './app/models',
-  model_files = fs.readdirSync(models_path),
-  env = process.env.NODE_ENV || 'development';
+  db = mongoose.connect(url);
+
+  var  models_path = './app/models',
+  model_files = fs.readdirSync(models_path);
 
   model_files.forEach(function (file) {
-    require('.' + models_path + '/' +file);
+    require('../../' + models_path + '/' + file);
   });
 
-  //connect to local mongodb database
-  db = mongoose.connect('mongodb://127.0.0.1:27017/test');
-
-  //attach lister to connected event
   mongoose.connection.once('connected', function() {
     if (env === 'development') {
       console.log("Connected to database");

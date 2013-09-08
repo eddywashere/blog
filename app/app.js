@@ -5,10 +5,16 @@
  */
 
 var express = require('express'),
+MongoStore = require('connect-mongo')(express),
 routes = require('./routes'),
 app = express(),
 env = process.env.NODE_ENV || 'development',
-database = require('./db');
+config = require('./config/environments')[env],
+database = require('./config/database'),
+pass = require('./config/pass');
+
+var passport = require('passport'),
+LocalStrategy = require('passport-local').Strategy;
 
 var errorHandler = function (err, req, res, next) {
   if (env === 'development') {
@@ -17,18 +23,27 @@ var errorHandler = function (err, req, res, next) {
   return res.json(500, { error: err.stack });
 };
 
-database.connect();
+var db = database.connect(config.db);
 
 app.configure(function(){
-  app.disable('x-powered-by');
-  app.set('port', process.env.PORT || 8000);
   if (env === "development") {
     app.use(express.logger('dev'));
   }
+  app.use(express.favicon());
+  app.disable('x-powered-by');
+  app.set('port', process.env.PORT || 8000);
   app.use(express.compress());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.favicon());
+  app.use(express.cookieParser('some secret'));
+  app.use(express.session({
+    secret: process.env.SESSION_SECRET || "OpenSesame",
+    store: new MongoStore({
+      url: config.db
+    })
+  }));
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.use(app.router);
   app.use(errorHandler);
 });
