@@ -1,10 +1,10 @@
 'use strict';
 
 // require controllers
-var posts = require('./controllers/posts'),
-users = require('./controllers/users'),
+var posts = require('../controllers/posts'),
+users = require('../controllers/users'),
 helper = require('./middleware'),
-pass = require('./config/pass');
+pass = require('./pass');
 
 // "Resourceful" Routes
 

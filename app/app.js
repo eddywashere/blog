@@ -6,7 +6,7 @@
 
 var express = require('express'),
 MongoStore = require('connect-mongo')(express),
-routes = require('./routes'),
+routes = require('./config/routes'),
 app = express(),
 env = process.env.NODE_ENV || 'development',
 config = require('./config/environments')[env],
@@ -48,7 +48,7 @@ app.configure(function(){
   app.use(errorHandler);
 });
 
-require('./routes')(app);
+routes(app);
 
 function start() {
   app.listen(app.get('port'));
