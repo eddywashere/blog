@@ -18,7 +18,9 @@ exports.index = function(req, res){
 };
 
 exports.show = function(req, res){
-  Post.findOne({ _id : req.params.id }, function(err, post){
+  Post.findOne({ _id : req.params.id })
+  .populate('user', 'username')
+  .exec(function(err, post){
     if (err) {
       return res.json(500, {error: err.stack});
     } else if (!post){
@@ -35,6 +37,8 @@ exports.show = function(req, res){
 
 exports.create = function(req, res){
   var post = new Post(req.body);
+
+  post.user = req.user;
 
   post.save(function(err, post){
     if (err) {

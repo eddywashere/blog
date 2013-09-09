@@ -1,8 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-Schema = mongoose.Schema,
-ObjectId = Schema.ObjectId;
+Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
   title: {
@@ -20,6 +19,10 @@ var PostSchema = new Schema({
   },
   updated_at: {
     type: Date
+  },
+  user: {
+    type : Schema.ObjectId,
+    ref : 'User'
   }
 });
 
@@ -33,6 +36,6 @@ PostSchema.pre('save', function (next) {
   next();
 });
 
-var Post = mongoose.model('post', PostSchema);
+var Post = mongoose.model('Post', PostSchema);
 
 module.exports = Post;
