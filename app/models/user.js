@@ -28,6 +28,10 @@ var UserSchema = new Schema({
 UserSchema.method('setPassword', function (password, done) {
   var user = this;
 
+  if (!password) {
+    return done(user, "Invalid Password");
+  }
+
   bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash(password, salt, function(err, hash) {
       user.hashed_password = hash;

@@ -9,12 +9,10 @@ exports.create = function (req, res, next) {
   user.provider = 'local';
   user.setPassword(req.body.password, function(user, err) {
     if (err) {
-      console.log(err);
-      return res.json(400, err);
+      return res.json(400, {error: err});
     }
     user.save(function (err) {
       if (err) {
-        console.log(err);
         return res.json(400, err);
       }
       req.logIn(user, function(err) {
