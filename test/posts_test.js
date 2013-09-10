@@ -45,7 +45,7 @@ describe('Posts', function () {
         body: 'Lorem ipsum dolor sit amet'
       })
       .end(function(err, res){
-        res.should.have.status(200);
+        res.should.have.status(201);
         res.type.should.equal('application/json');
         res.body.should.be.an.instanceof(Object);
         res.text.should.include('Post successfully created');
@@ -126,7 +126,7 @@ describe('Posts', function () {
       })
       .expect('Content-Type', /json/)
       .end(function(err, res){
-        res.should.have.status(201);
+        res.should.have.status(200);
         res.type.should.equal('application/json');
         res.should.be.an.instanceof(Object);
         res.text.should.include('Post successfully updated');

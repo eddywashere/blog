@@ -49,6 +49,7 @@ exports.create = function(req, res){
         }
       });
     } else {
+      res.status(201);
       res.format({
         json: function(){
           res.send({message: "Post successfully created"});
@@ -70,7 +71,7 @@ exports.update = function(req, res){
     post.body = req.body.body;
 
     post.save(function(err){
-      res.status(201);
+      res.status(200);
       res.format({
         json: function(){
           res.send({message: "Post successfully updated"});

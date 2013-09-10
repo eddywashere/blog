@@ -29,9 +29,7 @@ UserSchema.method('setPassword', function (password, done) {
   var user = this;
 
   bcrypt.genSalt(10, function(err, salt) {
-    console.log(salt);
     bcrypt.hash(password, salt, function(err, hash) {
-      console.log(password);
       user.hashed_password = hash;
       user.salt = salt;
       return done(user, err);

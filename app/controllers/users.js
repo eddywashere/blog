@@ -21,7 +21,7 @@ exports.create = function (req, res, next) {
        if (err) {
           return next(err);
        }
-       return res.json(200, user);
+       return res.json(201, user);
       });
     });
   });
