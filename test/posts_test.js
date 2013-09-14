@@ -28,7 +28,7 @@ describe('Posts', function () {
       .end(function(err, res){
         res.should.have.status(200);
         res.type.should.equal('application/json');
-        res.body.should.be.an.instanceof(Array);
+        res.body.posts.should.be.an.instanceof(Array);
         done();
       });
     });
