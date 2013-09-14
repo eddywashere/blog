@@ -4,15 +4,25 @@
 var Post = require('../models/post');
 
 exports.index = function(req, res){
-  Post.find({}, function(err, posts){
-    if (err || !posts) {
-      res.status(500);
-      return res.json(500, { error : err.stack});
-    }
-    res.format({
-      json: function(){
-        res.send(posts);
+  Post.count().exec(function (err, count) {
+    Post.find({})
+    .populate('user', 'username')
+    .sort({'created_at': -1})
+    .limit(20)
+    .skip(0)
+    .exec(function(err, posts){
+      if (err || !posts) {
+        res.status(500);
+        return res.json(500, { error : err.stack});
       }
+      res.format({
+        json: function(){
+          res.send({
+            count: count,
+            posts: posts
+          });
+        }
+      });
     });
   });
 };
