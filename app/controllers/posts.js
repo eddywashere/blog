@@ -62,7 +62,10 @@ exports.create = function(req, res){
       res.status(201);
       res.format({
         json: function(){
-          res.send({message: "Post successfully created"});
+          res.send({
+            message: "Post successfully created",
+            post: post
+          });
         }
       });
     }
