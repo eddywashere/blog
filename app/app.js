@@ -29,6 +29,7 @@ var db = database.connect(config.db);
 
 app.configure(function(){
   if (env === "development") {
+    app.use(express.responseTime());
     app.use(express.logger('dev'));
   }
   app.use(express.favicon());
