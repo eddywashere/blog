@@ -14,13 +14,6 @@ describe('Posts', function () {
   agent;
 
   before(function (done) {
-    post = new Post({
-      title: "Testing the ability to post",
-      body: "lorem  ipsum"
-    });
-
-    post.save();
-
     agent = request.agent(url);
 
     agent
@@ -66,6 +59,7 @@ describe('Posts', function () {
         res.type.should.equal('application/json');
         res.body.should.be.an.instanceof(Object);
         res.text.should.include('Post successfully created');
+        post = res.body.post;
         done();
       });
     });
@@ -242,11 +236,6 @@ describe('Posts', function () {
           console.log(err);
         }
       });
-    });
-    post.remove(function (err) {
-      if (err) {
-        console.log(err);
-      }
     });
     done();
   });
