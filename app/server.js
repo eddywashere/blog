@@ -1,7 +1,8 @@
 'use strict';
 
-var app = require('./app');
+var server = require('./app');
 
 console.log("Starting web server...");
-app.start();
-console.log("Successfully started web server. Waiting for incoming connections...");
+server.start(function(){
+  console.log("Express server listening on port " + server.app.get('port'));
+});

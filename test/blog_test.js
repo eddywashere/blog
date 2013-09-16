@@ -2,7 +2,17 @@
 
 var blog = require('../app/app.js'),
 should = require('should'),
-request = require('supertest');
+request = require('supertest'),
+port = blog.app.get('port'),
+url = "localhost:" + port;
+
+// Runs before all tests
+before(function (done) {
+  blog.start(function(){
+    console.log("Express server listening on port " + blog.app.get('port'));
+    done();
+  });
+});
 
 describe('Blog API', function () {
   it('should exist', function () {
@@ -14,7 +24,7 @@ describe('Blog API', function () {
   });
 
   it("should include a version", function (done) {
-    request(blog.app)
+    request(url)
     .get('/api')
     .end(function(err, res){
       res.should.have.status(200);

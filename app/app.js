@@ -11,7 +11,9 @@ app = express(),
 env = process.env.NODE_ENV || 'development',
 config = require('./config/environments')[env],
 database = require('./config/database'),
-pass = require('./config/pass');
+pass = require('./config/pass'),
+path = require('path'),
+rootPath = path.normalize(__dirname + '/..');
 
 var passport = require('passport'),
 LocalStrategy = require('passport-local').Strategy;
@@ -32,6 +34,9 @@ app.configure(function(){
   app.use(express.favicon());
   app.disable('x-powered-by');
   app.set('port', process.env.PORT || 8000);
+  app.set('views', rootPath + '/app/views');
+  app.set('view engine', 'jade');
+
   app.use(express.compress());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
@@ -45,15 +50,23 @@ app.configure(function(){
   }));
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(function(req, res, next){
+    res.locals.req = req;
+    next();
+  });
   app.use(app.router);
   app.use(errorHandler);
 });
 
 routes(app);
 
-function start() {
-  app.listen(app.get('port'));
-  console.log("Express server listening on port " + app.get('port'));
+function start(cb) {
+  database.connection.on('open', function(err) {
+    app.listen(app.get('port'));
+    if (cb) {
+      cb();
+    }
+  });
 }
 
 exports.start = start;

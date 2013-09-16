@@ -16,12 +16,6 @@ function connect(url) {
     require('../../' + models_path + '/' + file);
   });
 
-  mongoose.connection.once('connected', function() {
-    if (env === 'development') {
-      console.log("Connected to database");
-    }
-  });
-
   // log any db errors
   mongoose.connection.on('error', function(err) {
     console.log(":::::::: WARNING: MONGODB ERRROR ::::::");
@@ -29,7 +23,12 @@ function connect(url) {
     console.log(":::::::::::::::::::::::::::::::::::::::");
   });
 
-  return db;
+  mongoose.connection.on('open', function(err) {
+    console.log(":::::::: Connected to database ::::::");
+    return db;
+  });
 }
 
 exports.connect = connect;
+
+exports.connection = mongoose.connection;

@@ -39,6 +39,7 @@
     "should": "~1.2.2",
     "grunt-mocha-test": "~0.6.3",
     "express": "~3.4.0",
+    "jade": "~0.35.0",
     "supertest": "~0.7.1",
     "connect-mongo": "~0.3.3",
     "bcrypt": "~0.7.7",

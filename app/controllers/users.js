@@ -27,19 +27,43 @@ exports.create = function (req, res, next) {
 
 exports.login = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
-    if (err) { return res.json(500, {error: err.stack}); }
-    if (!user) {
-      req.session.messages =  [];
-      return res.json(404, {error: info});
-    }
-    req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      return res.json(200, req.user);
+    res.format({
+      json: function(){
+        if (err) { return res.json(500, {error: err.stack}); }
+        if (!user) {
+          req.session.messages =  [];
+          return res.json(404, {error: info});
+        }
+        req.logIn(user, function(err) {
+          if (err) { return next(err); }
+          return res.json(200, req.user);
+        });
+      },
+      html: function(){
+        if (err) { return res.json(500, {error: err.stack}); }
+        if (!user) {
+          req.session.messages =  [];
+          return res.json(404, {error: info});
+        }
+        req.logIn(user, function(err) {
+          if (err) { return next(err); }
+          res.redirect('/');
+        });
+
+      }
     });
+
   })(req, res, next);
 };
 
 exports.logout = function (req, res) {
   req.logout();
-  res.json(200, {message: "Logged out"});
+  res.format({
+    json: function(){
+      res.send({message: "Logged out"});
+    },
+    html: function(){
+      res.redirect('/');
+    }
+  });
 };

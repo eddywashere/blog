@@ -3,11 +3,15 @@
 var blog = require('../app/app.js'),
 should = require('should'),
 request = require('supertest'),
-Post = require('../app/models/post');
+Post = require('../app/models/post'),
+User = require('../app/models/user'),
+port = blog.app.get('port'),
+url = "localhost:" + port;
 
 describe('Posts', function () {
 
-  var post;
+  var post,
+  agent;
 
   before(function (done) {
     post = new Post({
@@ -16,12 +20,25 @@ describe('Posts', function () {
     });
 
     post.save();
-    done();
+
+    agent = request.agent(url);
+
+    agent
+    .post('/api/users')
+    .set('Accept', 'application/json')
+    .expect('Content-Type', /json/)
+    .send({
+      username: 'testuser',
+      password: 'P4SSw0RD!'
+    })
+    .end(function(err, res){
+      done();
+    });
   });
 
   describe('GET /api/posts', function () {
     it('should return an array of posts', function (done) {
-      request(blog.app)
+      agent
       .get('/api/posts')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -36,7 +53,7 @@ describe('Posts', function () {
 
   describe('POST /api/posts', function () {
     it('should successfully create a post with a valid request', function (done) {
-      request(blog.app)
+      agent
       .post('/api/posts')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -54,7 +71,7 @@ describe('Posts', function () {
     });
 
     it('should return a 400 when posting an invalid request', function (done) {
-      request(blog.app)
+      agent
       .post('/api/posts')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -74,7 +91,7 @@ describe('Posts', function () {
 
   describe('GET /api/posts/:id', function () {
     it('should return a single post by id', function (done) {
-      request(blog.app)
+      agent
       .get('/api/posts/' + post._id)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -87,7 +104,7 @@ describe('Posts', function () {
     });
 
     it('should return a 404 message when post not found', function (done) {
-      request(blog.app)
+      agent
       .get('/api/posts/000000000000000000000000')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -101,7 +118,7 @@ describe('Posts', function () {
     });
 
     it('should return a 400 when id is not a valid ObjectID', function (done) {
-      request(blog.app)
+      agent
       .get('/api/posts/123')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -117,7 +134,7 @@ describe('Posts', function () {
 
   describe('PUT /api/posts/:id', function () {
     it('should successfully update a post with a valid id', function (done) {
-      request(blog.app)
+      agent
       .put('/api/posts/' + post._id)
       .set('Accept', 'application/json')
       .send({
@@ -135,7 +152,7 @@ describe('Posts', function () {
     });
 
     it('should return a 404 message when post not found', function (done) {
-      request(blog.app)
+      agent
       .put('/api/posts/000000000000000000000000')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -153,7 +170,7 @@ describe('Posts', function () {
     });
 
     it('should return a 400 message when attempting to delete a post with an invalid id', function (done) {
-      request(blog.app)
+      agent
       .put('/api/posts/123')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -173,7 +190,7 @@ describe('Posts', function () {
 
   describe('DELETE /api/posts/:id', function () {
     it('should successfully delete a post with a valid id', function (done) {
-      request(blog.app)
+      agent
       .del('/api/posts/' + post._id)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -187,7 +204,7 @@ describe('Posts', function () {
     });
 
     it('should return a 404 message when post not found', function (done) {
-      request(blog.app)
+      agent
       .del('/api/posts/' + post._id)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -201,7 +218,7 @@ describe('Posts', function () {
     });
 
     it('should return a 400 message when attempting to delete a post with an invalid id', function (done) {
-      request(blog.app)
+      agent
       .del('/api/posts/123')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -216,6 +233,16 @@ describe('Posts', function () {
   });
 
   after(function (done) {
+    User.findOne({ username : 'testuser' }, function(err, user){
+      if (err) {
+        console.log(err);
+      }
+      user.remove(function(err){
+        if (err) {
+          console.log(err);
+        }
+      });
+    });
     post.remove(function (err) {
       if (err) {
         console.log(err);
