@@ -50,8 +50,14 @@ app.configure(function(){
   }));
   app.use(passport.initialize());
   app.use(passport.session());
+  if (env === "production") {
+    app.use(express.csrf());
+    app.use(express.logger());
+  }
   app.use(function(req, res, next){
     res.locals.req = req;
+    res.locals.token = req.csrfToken ? req.csrfToken() : '';
+    res.cookie('XSRF-Token', res.locals.token);
     next();
   });
   app.use(app.router);
