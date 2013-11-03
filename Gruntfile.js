@@ -36,6 +36,26 @@ module.exports = function(grunt) {
         src: ['test/**/*.js']
       },
     },
+    sass: {
+      dev: {
+        options: {
+          style: 'expanded'
+        },
+        files: [{
+          expand: true,
+          cwd: 'app/assets/stylesheets',
+          src: ['*.scss'],
+          dest: 'public/assets',
+          ext: '.css'
+        }]
+      },
+      dist: {
+        options: {
+          style: 'compressed'
+        },
+        files: '<%= sass.dev.files %>'
+      }
+    },
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
@@ -66,6 +86,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-contrib-sass');
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'mochaTest']);
