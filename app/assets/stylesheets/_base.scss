@@ -1,0 +1,105 @@
+body {
+  color: #555;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+i,
+em {
+  font-style: italic;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+p {
+  margin: 0 0 $base-line-height;
+}
+
+h1, h2, h3, h4 {
+  font-family: $alt-font-family;
+}
+
+h1, h2, h3 {
+  margin: 0 0 $base-line-height;
+  font-weight: 600;
+  line-height: $base-line-height * 1.5;
+}
+
+h4, h5, h6 {
+  margin: 0;
+}
+
+h5, h6 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+h4 {
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+h5 {
+  font-size: 12px;
+}
+
+h6 {
+  font-size: 10px;
+}
+
+ol, ul {
+  margin: 0 0 $base-line-height 25px;
+  padding: 0;
+}
+
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+  margin-bottom: 0;
+}
+
+ol {
+  list-style: decimal;
+}
+
+ul {
+  list-style: square;
+}
+
+dl {
+  margin: 0 0 $base-line-height;
+}
+
+dd {
+  margin: 0 0 0 25px;
+}
+
+hr {
+  margin: 0 0 $base-line-height;
+  border: 0;
+  border-top: 1px solid #e3e3e3;
+}
