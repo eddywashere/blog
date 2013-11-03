@@ -22,6 +22,10 @@ module.exports = function(app) {
     res.render('login');
   });
 
+  app.get('/dashboard', pass.ensureAuthenticated, function(req, res){
+    res.render('dashboard');
+  });
+
   app.get('/login', function(req, res){
     res.render('login');
   });

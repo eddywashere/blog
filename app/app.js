@@ -62,6 +62,7 @@ app.configure(function(){
     next();
   });
   app.use(app.router);
+  app.use(express.static(rootPath + '/public'));
   app.use(errorHandler);
 });
 
