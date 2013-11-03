@@ -33,7 +33,14 @@ exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.json(401, {error: "You are not authenticated"});
+  res.format({
+    json: function(){
+      res.json(401, {error: "You are not authenticated"});
+    },
+    html: function () {
+      res.redirect('/');
+    }
+  });
 };
 
 

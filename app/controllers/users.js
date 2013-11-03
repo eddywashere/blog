@@ -12,14 +12,29 @@ exports.create = function (req, res, next) {
       return res.json(400, {error: err});
     }
     user.save(function (err) {
-      if (err) {
-        return res.json(400, err);
-      }
-      req.logIn(user, function(err) {
-       if (err) {
-          return next(err);
-       }
-       return res.json(201, user);
+      res.format({
+        json: function(){
+          if (err) {
+            return res.json(400, err);
+          }
+          req.logIn(user, function(err) {
+           if (err) {
+              return next(err);
+           }
+           return res.json(201, user);
+          });
+        },
+        html: function(){
+          if (err) {
+            return res.json(400, err);
+          }
+          req.logIn(user, function(err) {
+           if (err) {
+              return next(err);
+           }
+           return res.redirect('/dashboard');
+          });
+        }
       });
     });
   });
@@ -47,7 +62,7 @@ exports.login = function(req, res, next) {
         }
         req.logIn(user, function(err) {
           if (err) { return next(err); }
-          res.redirect('/');
+          res.redirect('/dashboard');
         });
 
       }

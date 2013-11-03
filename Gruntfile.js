@@ -77,6 +77,19 @@ module.exports = function(grunt) {
         options: {
           nospawn: true
         }
+      },
+      sass: {
+        files: [ 'app/assets/stylesheets/**/*.scss' ],
+        tasks: ['sass:dev'],
+        options: {
+          livereload: true
+        }
+      },
+      html: {
+        files: [ 'app/views/**/*.jade' ],
+        options: {
+          livereload: true
+        }
       }
     }
   });
@@ -91,6 +104,6 @@ module.exports = function(grunt) {
   // Default task.
   grunt.registerTask('default', ['jshint', 'mochaTest']);
 
-  grunt.registerTask('server', ['express:dev', 'watch']);
+  grunt.registerTask('server', ['sass:dev', 'express:dev', 'watch']);
 
 };

@@ -10,9 +10,13 @@ html
     h3="Sample App"
     if (req.isAuthenticated())
       p Hello #{req.user.username}
-      p
-        a(href="/logout", title="logout") Logout
+      ul
+        li
+          a(href="/dashboard") Dashboard
+        li
+          a(href="/logout", title="logout") Logout
     else
+      p Sign In
       form(method='post', action='/api/users/login')
         input(type='hidden', name='_csrf', value=token)
         p
@@ -20,3 +24,11 @@ html
         p
           input(name='password', type='password')
         input(type="submit", value="Log In")
+      p Sign up
+      form(method='post', action='/api/users')
+        input(type='hidden', name='_csrf', value=token)
+        p
+          input(name='username', type='text')
+        p
+          input(name='password', type='password')
+        input(type="submit", value="Sign Up")
