@@ -9,8 +9,9 @@ html
       meta(content="#{token}", name="csrf-token")
   body
     .header
+      .header-brand
+        a(href="#") Dashboard
     .main
-      h3="Dashboard"
       p Hello #{req.user.username}
       p
         a(href="/logout", title="logout") Logout
