@@ -1,5 +1,6 @@
 body {
-  margin-top: 50px;
+  margin-top: 40px;
+  background: #222;
 }
 
 .header {
@@ -7,28 +8,75 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 50px;
-  background: #7CDDAF;
+  height: 40px;
+  background: #333;
 }
 
-.header-brand a {
-  line-height: 20px;
-  padding: 15px 20px;
-  display: inline-block;
-  color: #fff;
-  font-weight: 600;
-  font-size: 18px;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, .35);
-  letter-spacing: .4px;
-  // text-transform: uppercase;
-  &:hover {
-    text-decoration: none;
-    text-shadow: 0 0 2px rgba(0, 0, 0, .35);
-  }
+.header-brand {
+  // line-height: 20px;
+  // padding: 10px 15px;
+  // display: inline-block;
+  // color: #fff;
+  // font-weight: 100;
+  // font-size: 20px;
+  // text-shadow: 0 0 2px rgba(0, 0, 0, .35);
+  // letter-spacing: .8px;
+  // // text-transform: uppercase;
+  // &:hover {
+  //   text-decoration: none;
+  //   opacity: .8;
+  // }
 }
 
 .main {
   margin: 0 auto;
   padding: 20px 20px 0;
-  margin-top: 30px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  min-width: 800px;
+  width: 80%;
+}
+
+.content {
+  background: white;
+  padding: 20px;
+  @extend %last-child;
+}
+
+.page-title {
+  color: #ccc;
+  font-weight: 200;
+}
+// navs
+.nav {
+  float: left;
+  list-style: none;
+  margin: 0;
+
+  @include micro-clearfix();
+}
+
+.nav-item {
+  float: left;
+}
+
+.nav-link, .nav-text {
+  font-size: 16px;
+  letter-spacing: .8px;
+  font-weight: 100;
+  color: #d8d8d8;
+  display: block;
+  padding: 10px 20px;
+  text-shadow: 0 0 1px rgba(0, 0, 0, .35);
+}
+
+.nav-link:hover {
+  text-decoration: none;
+  opacity: .8;
+}
+
+// Misc
+
+.pull-right {
+  float: right;
 }

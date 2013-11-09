@@ -9,29 +9,35 @@ html
       meta(content="#{token}", name="csrf-token")
   body
     .header
-      .header-brand
-        a(href="#") Dashboard
+      ul.nav
+        li.nav-item.nav-brand
+          a.nav-link.header-brand(href="#") Dashboard
+      ul.nav.pull-right
+        li.nav-item
+          span.nav-text #{req.user.username}
+        li.nav-item
+          a.nav-link(href="/logout", title="logout") Logout
+
     .main
-      p Hello #{req.user.username}
-      p
-        a(href="/logout", title="logout") Logout
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
-      p lorem ipsum
+      h1.page-title Section
+      .content
+        p#results Loading...
+    script(src='assets/boomerang.js', type='text/javascript').
+    script(type='text/javascript').
+      BOOMR.init({
+        beacon_url: "http://localhost:8000/stats/beacon",
+        site_domain: "http://localhost:8080",
+        user_ip: "10.0.1.7",
+          BW: {
+            base_url: "http://localhost:8000/images/",
+            cookie: "BW"
+          }
+      });
+      BOOMR.subscribe('before_beacon', function(o) {
+        var html = "";
+        if(o.t_done) { html += "This page took " + o.t_done + "ms to load<br>"; }
+        if(o.bw) { html += "Your bandwidth to this server is " + parseInt(o.bw/1024) + "kbps (&#x00b1;" + parseInt(o.bw_err*100/o.bw) + "%)<br>"; }
+        if(o.lat) { html += "Your latency to this server is " + parseInt(o.lat) + "&#x00b1;" + o.lat_err + "ms<br>"; }
+
+        document.getElementById('results').innerHTML = html;
+      });

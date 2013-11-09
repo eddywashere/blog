@@ -63,6 +63,7 @@ app.configure(function(){
   });
   app.use(app.router);
   app.use(express.static(rootPath + '/public'));
+  app.use("/assets", express.static(rootPath + '/app/assets/javascripts'));
   app.use(errorHandler);
 });
 

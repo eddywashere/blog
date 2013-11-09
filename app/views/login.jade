@@ -8,6 +8,7 @@ html
       meta(content="#{token}", name="csrf-token")
   body
     h3="Sample App"
+    p#results Loading...
     if (req.isAuthenticated())
       p Hello #{req.user.username}
       ul
@@ -19,16 +20,35 @@ html
       p Sign In
       form(method='post', action='/api/users/login')
         input(type='hidden', name='_csrf', value=token)
-        p
+        p username
           input(name='username', type='text')
-        p
+        p password
           input(name='password', type='password')
         input(type="submit", value="Log In")
       p Sign up
       form(method='post', action='/api/users')
         input(type='hidden', name='_csrf', value=token)
-        p
+        p username
           input(name='username', type='text')
-        p
+        p password
           input(name='password', type='password')
         input(type="submit", value="Sign Up")
+    script(src='assets/boomerang.js', type='text/javascript').
+    script(type='text/javascript').
+      BOOMR.init({
+        beacon_url: "http://localhost:8000/stats/beacon",
+        site_domain: "http://localhost:8080",
+        user_ip: "10.0.1.7",
+          BW: {
+            base_url: "http://localhost:8000/images/",
+            cookie: "BW"
+          }
+      });
+      BOOMR.subscribe('before_beacon', function(o) {
+        var html = "";
+        if(o.t_done) { html += "This page took " + o.t_done + "ms to load<br>"; }
+        if(o.bw) { html += "Your bandwidth to this server is " + parseInt(o.bw/1024) + "kbps (&#x00b1;" + parseInt(o.bw_err*100/o.bw) + "%)<br>"; }
+        if(o.lat) { html += "Your latency to this server is " + parseInt(o.lat) + "&#x00b1;" + o.lat_err + "ms<br>"; }
+
+        document.getElementById('results').innerHTML = html;
+      });

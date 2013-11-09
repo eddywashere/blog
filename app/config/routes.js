@@ -32,6 +32,11 @@ module.exports = function(app) {
 
   app.get('/logout', users.logout);
 
+  app.get('/stats/beacon', function(req, res){
+    res.setHeader('Connection', 'close');
+    res.setHeader('Cache-control', 'no-cache');
+    res.send(204);
+  });
 
   // API Routes
 
